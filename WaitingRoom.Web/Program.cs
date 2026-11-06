@@ -1,7 +1,14 @@
+using WaitingRoom.Web.Services;
+using WaitingRoom.Web.Stores;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// すべてのリクエストが同じメモリ上の受付状況を参照する。
+builder.Services.AddSingleton<IQueueStore, InMemoryQueueStore>();
+builder.Services.AddScoped<QueueService>();
 
 var app = builder.Build();
 

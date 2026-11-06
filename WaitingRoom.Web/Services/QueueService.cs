@@ -1,0 +1,22 @@
+using WaitingRoom.Web.Models;
+using WaitingRoom.Web.Stores;
+
+namespace WaitingRoom.Web.Services;
+
+public sealed class QueueService
+{
+    private readonly IQueueStore _queueStore;
+
+    public QueueService(IQueueStore queueStore)
+    {
+        _queueStore = queueStore;
+    }
+
+    /// <summary>
+    /// 設定された保存先から、現在の受付状況を取得します。
+    /// </summary>
+    public Task<QueueSnapshot> GetSnapshotAsync(CancellationToken cancellationToken)
+    {
+        return _queueStore.GetSnapshotAsync(cancellationToken);
+    }
+}

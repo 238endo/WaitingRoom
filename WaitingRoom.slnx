@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/ソリューション項目/">
     <File Path="AGENTS.md" />
+    <File Path="docs/api/queue.md" />
     <File Path="docs/images/受付画面.png" />
     <File Path="docs/images/受付画面と待合室画面.png" />
     <File Path="docs/images/呼び出すAPI図解.png" />
