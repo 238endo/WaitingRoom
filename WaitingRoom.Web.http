@@ -1,0 +1,18 @@
+POST https://localhost:7136/api/tickets
+
+###
+
+GET https://localhost:7136/api/queue
+
+###
+
+# 学習メモ：PUTでJSONを送るときの例（このAPIは未実装）
+# A001の状態を「案内完了」に更新する想定。
+# Content-TypeでJSONを送ることを伝え、1行空けて本文を書く。
+#
+# PUT https://localhost:7136/api/tickets/A001
+# Content-Type: application/json
+#
+# {
+#   "status": "completed"
+# }
