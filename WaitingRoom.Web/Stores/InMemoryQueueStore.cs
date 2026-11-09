@@ -14,6 +14,8 @@ public sealed class InMemoryQueueStore : IQueueStore
 
     // 待機番号を発行順に保持します。初期状態では待機者はいません。
     private readonly Queue<string> _waitingNumbers = new();
+    // 案内完了後も、発行済みの番号かどうかを判定できるように保持します。
+    private readonly HashSet<string> _issuedNumbers = new(StringComparer.Ordinal);
     private int _lastIssuedNumber;
     private string? _callingNumber;
 
@@ -49,6 +51,7 @@ public sealed class InMemoryQueueStore : IQueueStore
             var nextNumber = checked(_lastIssuedNumber + 1);
             var ticketNumber = $"A{nextNumber:D3}";
             _waitingNumbers.Enqueue(ticketNumber);　// データ構造の末尾に追加することで、発行順を保持します。
+            _issuedNumbers.Add(ticketNumber);
             _lastIssuedNumber = nextNumber;
 
             return Task.FromResult(ticketNumber);
@@ -73,6 +76,33 @@ public sealed class InMemoryQueueStore : IQueueStore
 
             _callingNumber = nextNumber;
             return Task.FromResult<string?>(nextNumber);
+        }
+    }
+
+    /// <summary>
+    /// 呼び出し中の番号の案内を完了し、完了できたかを返します。
+    /// </summary>
+    /// <param name="number">案内を完了する受付番号。例は A001。</param>
+    public Task<TicketCompletionResult> CompleteTicketAsync(
+        string number,
+        CancellationToken cancellationToken)
+    {
+        lock (_queueLock)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            if (!_issuedNumbers.Contains(number))
+            {
+                return Task.FromResult(TicketCompletionResult.NotFound);
+            }
+
+            if (_callingNumber != number)
+            {
+                return Task.FromResult(TicketCompletionResult.NotCalling);
+            }
+
+            _callingNumber = null;
+            return Task.FromResult(TicketCompletionResult.Completed);
         }
     }
 }

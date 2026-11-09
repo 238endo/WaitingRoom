@@ -36,4 +36,15 @@ public sealed class QueueService
     {
         return _queueStore.CallNextAsync(cancellationToken);
     }
+
+    /// <summary>
+    /// ストアに指定した番号の案内完了を頼み、結果を返します。
+    /// </summary>
+    /// <param name="number">案内を完了する受付番号。例は A001。</param>
+    public Task<TicketCompletionResult> CompleteTicketAsync(
+        string number,
+        CancellationToken cancellationToken)
+    {
+        return _queueStore.CompleteTicketAsync(number, cancellationToken);
+    }
 }

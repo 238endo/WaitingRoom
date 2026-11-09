@@ -19,4 +19,12 @@ public interface IQueueStore
     /// 呼び出し中の番号があるか、待機列が空の場合は null を返します。
     /// </summary>
     Task<string?> CallNextAsync(CancellationToken cancellationToken);
+
+    /// <summary>
+    /// 指定した番号の案内を完了し、結果を返します。
+    /// </summary>
+    /// <param name="number">案内を完了する受付番号。例は A001。</param>
+    Task<TicketCompletionResult> CompleteTicketAsync(
+        string number,
+        CancellationToken cancellationToken);
 }

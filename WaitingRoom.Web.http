@@ -1,12 +1,21 @@
-POST https://localhost:7136/api/tickets
-
-###
-
+#受付番号の一覧取得
 GET https://localhost:7136/api/queue
 
 ###
 
+#受付番号を発行
+POST https://localhost:7136/api/tickets
+
+###
+
+#受付番号の呼び出し
 POST https://localhost:7136/api/queue/call-next
+
+###
+
+# 呼び出し中の番号に合わせて URLの中身にある"A001"を変更してください。
+# 受付番号の完了
+POST https://localhost:7136/api/tickets/A001/complete
 
 ###
 
