@@ -15,6 +15,7 @@ public sealed class InMemoryQueueStore : IQueueStore
     // 待機番号を発行順に保持します。初期状態では待機者はいません。
     private readonly Queue<string> _waitingNumbers = new();
     private int _lastIssuedNumber;
+    private string? _callingNumber;
 
     /// <summary>
     /// メモリに保持している受付状況を返します。初期状態では呼び出し番号も待機番号もありません。
@@ -28,7 +29,7 @@ public sealed class InMemoryQueueStore : IQueueStore
 
             // 取得後の発行で、このときの一覧が変わらないようにコピーします。
             var snapshot = new QueueSnapshot(
-                null,
+                _callingNumber,
                 _waitingNumbers.ToArray());
 
             return Task.FromResult(snapshot);
@@ -51,6 +52,27 @@ public sealed class InMemoryQueueStore : IQueueStore
             _lastIssuedNumber = nextNumber;
 
             return Task.FromResult(ticketNumber);
+        }
+    }
+
+    /// <summary>
+    /// 待機列の先頭を呼び出し中にして、その番号を返します。
+    /// 呼び出し中の番号があるか、待機列が空の場合は null を返します。
+    /// </summary>
+    public Task<string?> CallNextAsync(CancellationToken cancellationToken)
+    {
+        // 同時に操作されても、呼び出せるかの判定と更新を1件ずつ行います。
+        lock (_queueLock)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            if (_callingNumber is not null || !_waitingNumbers.TryDequeue(out var nextNumber))
+            {
+                return Task.FromResult<string?>(null);
+            }
+
+            _callingNumber = nextNumber;
+            return Task.FromResult<string?>(nextNumber);
         }
     }
 }

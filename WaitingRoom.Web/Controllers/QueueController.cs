@@ -26,4 +26,20 @@ public sealed class QueueController : ControllerBase
         var snapshot = await _queueService.GetSnapshotAsync(cancellationToken);
         return Ok(snapshot);
     }
+
+    /// <summary>
+    /// 次の待機番号を呼び出し、番号をHTTP 200で返します。
+    /// 呼び出し中の番号があるか、待機列が空の場合はHTTP 409を返します。
+    /// </summary>
+    [HttpPost("call-next")]
+    public async Task<IActionResult> CallNext(CancellationToken cancellationToken)
+    {
+        var number = await _queueService.CallNextAsync(cancellationToken);
+        if (number is null)
+        {
+            return Conflict();
+        }
+
+        return Ok(new { number });
+    }
 }

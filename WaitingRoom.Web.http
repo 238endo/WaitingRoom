@@ -6,6 +6,10 @@ GET https://localhost:7136/api/queue
 
 ###
 
+POST https://localhost:7136/api/queue/call-next
+
+###
+
 # 学習メモ：PUTでJSONを送るときの例（このAPIは未実装）
 # A001の状態を「案内完了」に更新する想定。
 # Content-TypeでJSONを送ることを伝え、1行空けて本文を書く。

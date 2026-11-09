@@ -27,4 +27,13 @@ public sealed class QueueService
     {
         return _queueStore.IssueTicketAsync(cancellationToken);
     }
+
+    /// <summary>
+    /// ストアに次の番号の呼び出しを頼み、呼び出した番号を返します。
+    /// 呼び出せない場合は null を返します。
+    /// </summary>
+    public Task<string?> CallNextAsync(CancellationToken cancellationToken)
+    {
+        return _queueStore.CallNextAsync(cancellationToken);
+    }
 }
