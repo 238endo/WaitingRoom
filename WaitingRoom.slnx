@@ -9,6 +9,7 @@
     <File Path="docs/要件定義.md" />
     <File Path="docs/詳細設計.md" />
     <File Path="README.md" />
+    <File Path="WaitingRoom.Web.http" />
   </Folder>
   <Project Path="WaitingRoom.Web/WaitingRoom.Web.csproj" />
 </Solution>
