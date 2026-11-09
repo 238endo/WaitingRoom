@@ -40,6 +40,6 @@ public sealed class QueueController : ControllerBase
             return Conflict();
         }
 
-        return Ok(new { number });
+        return Ok(new TicketNumberResponse(number));
     }
 }
