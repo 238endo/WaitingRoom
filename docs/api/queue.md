@@ -18,7 +18,7 @@ Minimal APIで `MapGet` を使ったことがある人向けに、Controllerで�
 
 ## 4. InMemoryQueueStore.csで値を見て、Controllerに戻る
 
-[InMemoryQueueStore.cs](../../WaitingRoom.Web/Stores/InMemoryQueueStore.cs) の `GetSnapshotAsync()` は、メモリに保持している `_snapshot` を返します。`_snapshot` の型は [QueueSnapshot](../../WaitingRoom.Web/Models/QueueSnapshot.cs) です。初期状態では、呼び出し中の番号は `null`、待機番号の一覧は空です。
+[InMemoryQueueStore.cs](../../WaitingRoom.Web/Stores/InMemoryQueueStore.cs) の `GetSnapshotAsync()` は、メモリに保持している待機番号をコピーして、[QueueSnapshot](../../WaitingRoom.Web/Models/QueueSnapshot.cs) を返します。初期状態では、呼び出し中の番号は `null`、待機番号の一覧は空です。
 
 最後にControllerの `Get()` に戻り、`return Ok(snapshot);` を見ます。`Ok` はHTTP 200を表し、ASP.NET Coreが `snapshot` をJSONに変換してブラウザーに返します。
 

@@ -19,4 +19,12 @@ public sealed class QueueService
     {
         return _queueStore.GetSnapshotAsync(cancellationToken);
     }
+
+    /// <summary>
+    /// Storeに受付番号の発行を依頼し、発行された番号を返します。
+    /// </summary>
+    public Task<string> IssueTicketAsync(CancellationToken cancellationToken)
+    {
+        return _queueStore.IssueTicketAsync(cancellationToken);
+    }
 }
