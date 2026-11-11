@@ -7,7 +7,25 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
+
+    /* ----------------------------------------------------------------------------------
+     module は、TypeScriptを変換した後のJavaScriptの形式を決める。
+    
+     CommonJS
+       require や exports を使う形式。既存のNode.jsコードに合わせるときに使う。
+    
+     NodeNext
+       Node.jsで動かすコード向け。今回のような .ts ファイルでは、
+       package.json の "type" を見て出力形式を決める。
+       "commonjs" なら require / exports、"module" なら import / export を使う。
+    
+     ESNext（今回使う設定）
+       import や export を使うESモジュール形式で出力する。
+       受付画面では、生成した reception.js を
+       <script type="module"> でブラウザーから読み込む。
+    ---------------------------------------------------------------------------------- */
+
+    "module": "ESNext",
     "target": "esnext",
     "types": [],
     // For nodejs:

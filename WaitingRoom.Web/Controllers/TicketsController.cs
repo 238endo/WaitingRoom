@@ -4,6 +4,10 @@ using WaitingRoom.Web.Services;
 
 namespace WaitingRoom.Web.Controllers;
 
+/// <summary>
+/// 受付画面からの番号発行・案内完了のリクエストを受け取ります。
+/// 発行した番号などのデータや、処理が成功したかを返します。
+/// </summary>
 [ApiController]
 [Route("api/tickets")]
 public sealed class TicketsController : ControllerBase
