@@ -1,20 +1,36 @@
 <h1>受付画面</h1>
+
+<p>---</p> <!-- ※将来的に削除します。 -->
+
 <button type="button" id="issue-ticket">受付番号を発行</button>
-<p id="ticket-number">受付番号はまだありません</p>
+
+<!-- イメージ画像だと、発行した番号自体に表示する要件はないので、隠す。 -->
+<p id="ticket-number" hidden>受付番号はまだありません</p>
+
+<p>---</p> <!-- ※将来的に削除します。 -->
+
+<div class="calling">
+    <span>呼び出し中: </span>
+    <!-- TypeScript がこの id で表示欄を探し、呼び出し中の番号を表示する。 -->
+    <span id="calling-number" class="fw-bold">呼び出し中の番号はありません</span>
+
+    <!-- 呼び出し中の番号があると分かるまでは、案内完了ボタンを無効にする。 -->
+    <button type="button" id="complete-ticket" disabled>案内完了</button>
+</div>
+
+<p>---</p> <!-- ※将来的に削除します。 -->
 
 <h2>待機中の番号</h2>
+
 <!-- TypeScript がこの id で一覧を見つけ、待機番号ごとに li を1つ追加する。 -->
 <ul id="waiting-numbers"></ul>
-<!-- ASP.NET Coreは、wwwroot の中身を、サイトの / から配信します。 -->
-<script type="module" src="/js/reception.js"></script>
 
-<h2>呼び出し中</h2>
-<!-- TypeScript がこの id で表示欄を探し、呼び出し中の番号を表示する。 -->
-<p id="calling-number">呼び出し中の番号はありません</p>
+<p>---</p> <!-- ※将来的に削除します。 -->
 
 <!-- 受付状況を取得するまでは、次の番号を呼べるか分からないので無効にする。 -->
 <button type="button" id="call-next" disabled>次を呼ぶ</button>
 
-<!-- 呼び出し中の番号があると分かるまでは、案内完了ボタンを無効にする。 -->
-<button type="button" id="complete-ticket" disabled>案内完了</button>
+<!-- ASP.NET Coreは、wwwroot の中身を、サイトの / から配信します。 -->
+<script type="module" src="/js/reception.js"></script>
+
 

@@ -1,11 +1,17 @@
 <h1>待合室画面</h1>
 
+<p>---</p> <!-- ※将来的に削除します。 -->
+
 <h2>呼び出し中の番号</h2>
 <!-- TypeScript が id を使って、呼び出し番号と待機人数の表示を更新する。 -->
 <p id="calling-number">未取得</p>
-<p>待機人数 <span id="waiting-count">未取得</span></p>
 
-<button type="button" id="refresh-queue">更新</button>
+<p>---</p> <!-- ※将来的に削除します。 -->
 
+<div>
+    <p>待機人数</p> 
+    <span id="waiting-count">未取得</span>
+    <button type="button" id="refresh-queue">更新</button>
+</div>
 <!-- npx tsc が生成した待合室用の JavaScript を読み込む。 -->
 <script type="module" src="/js/waiting-room.js"></script>

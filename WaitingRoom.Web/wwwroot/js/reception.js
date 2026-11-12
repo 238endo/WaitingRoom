@@ -10,6 +10,7 @@
 // 9. ジェネリックは、簡単に言うと「型を引数として渡せる仕組み」
 //10. TypeScript: string || null は C#: string? と同じです。
 //11. <span> は、文章の一部分を囲むための HTML タグ
+//12. <div> は、複数の要素をひとまとまりにします。
 // 受付番号発行ボタン
 const issueButton = document.querySelector('#issue-ticket');
 // 受付番号を表示する段落要素(<p>タグ)
