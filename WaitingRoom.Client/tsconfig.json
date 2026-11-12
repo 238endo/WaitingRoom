@@ -47,7 +47,8 @@
 
     // 元の TypeScript の本文もソースマップに入れ、DevTools で読めるようにする。
     // ソースマップは、変換後の .js の行と、元の .ts の行を結び付ける対応表です。
-    // 今回はwwwrootの外でtsファイルを作成していたため、以下のプロパティが必要になった。
+    // DevToolsで読めるようにするためには、
+    // 今回はwwwrootの外でtsファイルを作成していたため、以下のプロパティが必要。
     "inlineSources": true,
 
     // Stricter Typechecking Options
