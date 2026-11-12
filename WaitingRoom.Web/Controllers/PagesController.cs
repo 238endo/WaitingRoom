@@ -27,4 +27,12 @@ public class PagesController : Controller
         // このファイルから生成された HTML がブラウザーに返ります。
         return View();
     }
+
+    /// <summary>
+    /// 待合室の利用者に受付状況を表示するビューを返します。
+    /// </summary>
+    public IActionResult WaitingRoom()
+    {
+        return View();
+    }
 }

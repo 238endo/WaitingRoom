@@ -7,6 +7,9 @@
 // 6. ES(ECMAScript)モジュールは、import・exportを使う仕組みです。
 // 7. <ul> は 箇条書きのリストを作る HTML 要素です。中に <li>（リストの1項目）を書きます。
 // 8. Promise<>は"C#のTaskに相当する"と考えて大丈夫です。例: Task<string> = Promise<string> || Task = Promise<void>
+// 9. ジェネリックは、簡単に言うと「型を引数として渡せる仕組み」
+//10. TypeScript: string || null は C#: string? と同じです。
+//11. <span> は、文章の一部分を囲むための HTML タグ
 // 受付番号発行ボタン
 const issueButton = document.querySelector('#issue-ticket');
 // 受付番号を表示する段落要素(<p>タグ)
@@ -15,11 +18,21 @@ const ticketNumber = document.querySelector('#ticket-number');
 const waitingList = document.querySelector('#waiting-numbers');
 // HTMLButtonElement を指定すると、ボタンの disabled プロパティを使える。
 const callNextButton = document.querySelector('#call-next');
+// 案内完了ボタンを探す。HTMLButtonElement を指定すると disabled を操作できる。
+const completeButton = document.querySelector('#complete-ticket');
+// 最新の呼び出し番号を覚えておく。画面を開いた直後は null から始める。
+let currentCallingNumber = null;
 // 最新の待機番号を取得し、画面の一覧を描き直す。
 async function refreshWaitingList() {
     // サーバーから最新の受付状況を取得する。
     const response = await fetch('/api/queue');
     const queue = await response.json();
+    // 画面に表示する番号を、案内完了のクリック処理でも使えるように覚えておく。
+    currentCallingNumber = queue.callingNumber;
+    if (completeButton) {
+        // callingNumber が null なら呼び出し中の番号がないので、ボタンを無効にする。
+        completeButton.disabled = queue.callingNumber === null;
+    }
     // 呼び出し中の番号を表示し、次の番号を呼べるかを反映する。
     const callingNumberElement = document.querySelector('#calling-number');
     if (callingNumberElement) {
@@ -84,4 +97,33 @@ if (callNextButton) {
         await refreshWaitingList();
     });
 }
+// 「完了」ボタン
+if (completeButton) {
+    completeButton.addEventListener('click', async () => {
+        const number = currentCallingNumber;
+        // 呼び出し中の番号がなければ、このクリック処理を終える。
+        if (number === null) {
+            return;
+        }
+        // ${number} に A001 などが入り、その番号を案内完了にする URL になる。
+        const response = await fetch(`/api/tickets/${number}/complete`, {
+            method: 'POST',
+        });
+        // 204 も成功ステータスなので、response.ok は true になる。
+        if (!response.ok) {
+            console.error('案内完了に失敗しました。HTTP ステータス:', response.status);
+            return;
+        }
+        // 案内完了後の受付状況を取り直し、番号欄とボタンの状態を更新する。
+        await refreshWaitingList();
+    });
+}
+// 画面を開いてこのファイルが読み込まれたときに、最新の受付状況を表示する。
+try {
+    await refreshWaitingList();
+}
+catch (error) {
+    console.error('受付状況の初期表示に失敗しました。', error);
+}
 export {};
+//# sourceMappingURL=reception.js.map

@@ -34,9 +34,21 @@
     // and npm install -D @types/node
 
     // Other Outputs
-    "sourceMap": false,      // 出力例：app.js.map
-    "declaration": false,    // 出力例：app.d.ts
-    "declarationMap": false, // 出力例：app.d.ts.map
+    // 元の .ts にブレークポイントを置いてデバッグしたいときは true。
+    // .ts と .js の行の対応を記録した .js.map を出力する。
+    "sourceMap": true, 
+    // 別のアプリでも、このプロジェクトの関数を使うときに true。
+    // 「どんな値を渡せるか」「何が返るか」を型情報として .d.ts に書き出す。
+    "declaration": false,
+
+    // 別のアプリでその関数を使っていて、処理の中身まで見たいときに true。
+    // declaration と一緒に使うと、「定義へ移動」で元の .ts を開けるようになる。
+    "declarationMap": false,
+
+    // 元の TypeScript の本文もソースマップに入れ、DevTools で読めるようにする。
+    // ソースマップは、変換後の .js の行と、元の .ts の行を結び付ける対応表です。
+    // 今回はwwwrootの外でtsファイルを作成していたため、以下のプロパティが必要になった。
+    "inlineSources": true,
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
