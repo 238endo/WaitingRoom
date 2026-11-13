@@ -54,7 +54,7 @@ flowchart TD
 
 `_ViewStart.cshtml` は、Razor が画面のビューを処理する前に実行するファイル。WaitingRoom では `Views/` に置いているので、配下の `Pages/Reception.cshtml` や `Pages/WaitingRoom.cshtml` などに共通の設定を適用できる。
 
-[`_ViewStart.cshtml` の2行目](../WaitingRoom.Web/Views/_ViewStart.cshtml#L2) では、使うレイアウトを次のように指定している。
+[`_ViewStart.cshtml` の2行目](../../WaitingRoom.Web/Views/_ViewStart.cshtml#L2) では、使うレイアウトを次のように指定している。
 
 ```razor
 @{
@@ -62,11 +62,11 @@ flowchart TD
 }
 ```
 
-受付画面を開くと、`PagesController` が `Reception.cshtml` を選ぶ。Razor は画面を処理する前に `Layout = "_Layout";` を読み、WaitingRoom では [`Views/Shared/_Layout.cshtml`](../WaitingRoom.Web/Views/Shared/_Layout.cshtml) を使う。その中の `@RenderBody()` の位置に受付画面の内容が入る。待合室画面も同じレイアウトを使うので、共通のナビゲーションはレイアウト側にまとめられる。
+受付画面を開くと、`PagesController` が `Reception.cshtml` を選ぶ。Razor は画面を処理する前に `Layout = "_Layout";` を読み、WaitingRoom では [`Views/Shared/_Layout.cshtml`](../../WaitingRoom.Web/Views/Shared/_Layout.cshtml) を使う。その中の `@RenderBody()` の位置に受付画面の内容が入る。待合室画面も同じレイアウトを使うので、共通のナビゲーションはレイアウト側にまとめられる。
 
 ## フッターのタグと Privacy リンク
 
-受付画面や待合室画面の下に出るフッターは、共通レイアウトに書いてある。 [`Views/Shared/_Layout.cshtml`](../WaitingRoom.Web/Views/Shared/_Layout.cshtml#L49)
+受付画面や待合室画面の下に出るフッターは、共通レイアウトに書いてある。 [`Views/Shared/_Layout.cshtml`](../../WaitingRoom.Web/Views/Shared/_Layout.cshtml#L49)
 
 ```razor
 <footer class="border-top footer text-muted">
@@ -83,7 +83,7 @@ flowchart TD
 | `<footer>` | ページのフッターを表す HTML タグ。ここでは著作権表記とリンクをまとめる。 |
 | `class="border-top footer text-muted"` | 空白で区切った3つのクラスを同じ要素に付ける。 |
 | `border-top` | Bootstrap のクラス。フッターの上に境界線を引く。 |
-| `footer` | このプロジェクトの CSS クラス。下端の位置、幅、行の高さなどを指定する。定義は [`_Layout.cshtml.css`](../WaitingRoom.Web/Views/Shared/_Layout.cshtml.css#L42) にある。 |
+| `footer` | このプロジェクトの CSS クラス。下端の位置、幅、行の高さなどを指定する。定義は [`_Layout.cshtml.css`](../../WaitingRoom.Web/Views/Shared/_Layout.cshtml.css#L42) にある。 |
 | `text-muted` | Bootstrap のクラス。文字色を控えめな色にする。 |
 | `<div class="container">` | 中身をまとめる箱。Bootstrap の `container` が左右に余白を取り、画面幅に応じて中身の最大幅を調整する。 |
 | `&copy;` | ブラウザーに著作権記号 © を表示するための HTML の書き方。 |
@@ -99,9 +99,9 @@ Bootstrap の各クラスの説明は公式ドキュメントで確認できる�
 | `asp-controller="Home"` | `HomeController` を指定する。ここではクラス名の末尾の `Controller` を省いて書く。 |
 | `asp-action="Privacy"` | `HomeController` の `Privacy()` を指定する。 |
 
-1. サーバーが画面を作るとき、`_ViewImports.cshtml` の `@addTagHelper` で有効になったアンカー タグヘルパーが `asp-` 属性を読む。 [`_ViewImports.cshtml`](../WaitingRoom.Web/Views/_ViewImports.cshtml#L12)
-2. タグヘルパーが `Program.cs` のルーティング設定を使って URL を組み立てる。WaitingRoom では、ブラウザーに `<a href="/Home/Privacy">Privacy</a>` が届く。 [`Program.cs`](../WaitingRoom.Web/Program.cs#L40) · [Microsoft Learn — アンカー タグヘルパー](https://learn.microsoft.com/ja-jp/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper?view=aspnetcore-10.0)
-3. 利用者がリンクをクリックすると、ブラウザーが `/Home/Privacy` にアクセスする。`HomeController.Privacy()` の `return View();` で `Views/Home/Privacy.cshtml` が選ばれる。 [`HomeController.cs`](../WaitingRoom.Web/Controllers/HomeController.cs#L14) · [`Privacy.cshtml`](../WaitingRoom.Web/Views/Home/Privacy.cshtml)
+1. サーバーが画面を作るとき、`_ViewImports.cshtml` の `@addTagHelper` で有効になったアンカー タグヘルパーが `asp-` 属性を読む。 [`_ViewImports.cshtml`](../../WaitingRoom.Web/Views/_ViewImports.cshtml#L12)
+2. タグヘルパーが `Program.cs` のルーティング設定を使って URL を組み立てる。WaitingRoom では、ブラウザーに `<a href="/Home/Privacy">Privacy</a>` が届く。 [`Program.cs`](../../WaitingRoom.Web/Program.cs#L40) · [Microsoft Learn — アンカー タグヘルパー](https://learn.microsoft.com/ja-jp/aspnet/core/mvc/views/tag-helpers/built-in/anchor-tag-helper?view=aspnetcore-10.0)
+3. 利用者がリンクをクリックすると、ブラウザーが `/Home/Privacy` にアクセスする。`HomeController.Privacy()` の `return View();` で `Views/Home/Privacy.cshtml` が選ばれる。 [`HomeController.cs`](../../WaitingRoom.Web/Controllers/HomeController.cs#L14) · [`Privacy.cshtml`](../../WaitingRoom.Web/Views/Home/Privacy.cshtml)
 
 今の Privacy ページは、プライバシーポリシーを書くためのテンプレート。Chrome でフッターの「Privacy」を右クリックして「検証」を選ぶと、生成された `href` を確認できる。
 
@@ -114,7 +114,7 @@ MVC は **Area 名・コントローラー名・アクション名**の組み合
 | `asp-area=""` | 現在の `HomeController.Privacy()` | `/Home/Privacy` |
 | `asp-area="Admin"` | `[Area("Admin")]` を付けた管理画面用の `HomeController.Privacy()` | `/Admin/Home/Privacy` |
 
-どちらのリンクも `asp-controller="Home"` と `asp-action="Privacy"` は同じ。学習用の [管理用 HomeController.cs](../WaitingRoom.Web/Areas/Admin/Controllers/HomeController.cs) は、通常のコントローラーと別の名前空間に置いている。`[Area("Admin")]` で MVC 上の所属を指定し、`[HttpGet("/Admin/Home/Privacy")]` でブラウザーから開く URL を指定する。管理用の `Privacy()` はファイルのパスを指定して、通常の `Privacy()` と同じ `Views/Home/Privacy.cshtml` を返す。 [Microsoft Learn — ASP.NET Core の Areas](https://learn.microsoft.com/ja-jp/aspnet/core/mvc/controllers/areas?view=aspnetcore-10.0)
+どちらのリンクも `asp-controller="Home"` と `asp-action="Privacy"` は同じ。学習用の [管理用 HomeController.cs](../../WaitingRoom.Web/Areas/Admin/Controllers/HomeController.cs) は、通常のコントローラーと別の名前空間に置いている。`[Area("Admin")]` で MVC 上の所属を指定し、`[HttpGet("/Admin/Home/Privacy")]` でブラウザーから開く URL を指定する。管理用の `Privacy()` はファイルのパスを指定して、通常の `Privacy()` と同じ `Views/Home/Privacy.cshtml` を返す。 [Microsoft Learn — ASP.NET Core の Areas](https://learn.microsoft.com/ja-jp/aspnet/core/mvc/controllers/areas?view=aspnetcore-10.0)
 
 ## 図「Order of Views Execution」の読み方
 
