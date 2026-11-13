@@ -1,3 +1,63 @@
-<h1>受付画面</h1>
-<button type="button" id="issue-ticket">受付番号を発行</button>
-<p id="ticket-number">受付番号はまだありません</p>
+@*
+    MEMO: 
+@{
+    // 待合室画面では共通レイアウトを使わず、この画面の内容だけを表示する。
+    Layout = null;
+}
+
+<section> は、「この部分は何についてのまとまりか」を見出しで説明できるときに使います。
+*@
+<div class="reception">
+
+<h1 class="reception-title">受付画面</h1>
+    <section class="issue">
+        <button type="button" id="issue-ticket">受付番号を発行</button>
+
+        <!-- イメージ画像だと、発行した番号自体に表示する要件はないので、隠す。 -->
+        <p id="ticket-number" hidden>受付番号はまだありません</p>
+    </section>
+
+    <!-- 左にラベルと番号、右に案内完了ボタンを置く。 -->
+    <section class="calling">
+        <h2>呼び出し中</h2>
+        <!-- TypeScript がこの id で表示欄を探し、呼び出し中の番号を表示する。 -->
+        <p id="calling-number">呼び出し中の番号はありません</p>
+
+        <!-- 呼び出し中の番号があると分かるまでは、案内完了ボタンを無効にする。 -->
+        <button type="button" id="complete-ticket" disabled>案内完了</button>
+    </section>
+
+    <!-- 待機一覧と、その一覧を操作するボタンをまとめる。 -->
+    <section class="waiting">
+        <h2>待機中の番号</h2>
+
+        <!-- TypeScript がこの id で一覧を見つけ、待機番号ごとに li を1つ追加する。 -->
+        <ul id="waiting-numbers"></ul>
+
+        <!-- 受付状況を取得するまでは、次の番号を呼べるか分からないので無効にする。 -->
+        <button type="button" id="call-next" disabled>次を呼ぶ</button>
+    </section>
+</div>
+
+<!-- ASP.NET Coreは、wwwroot の中身を、サイトの / から配信します。 -->
+<script type="module" src="/js/reception.js"></script>
+
+
+@* ※ 共通レイアウトを使わない時(Layout = null)は、このファイルに直で、
+    <head>
+    <link rel="stylesheet" href="~/css/waiting-room.css" asp-append-version="true" />
+    </head>
+    とする。
+
+    Styles は、受付画面で使う CSS のリンクを入れるセクション名。
+   _Layout.cshtml の RenderSectionAsync("Styles", ...) が、
+   この中の <link> を完成した HTML の <head> に出力する。 *@
+@section Styles {
+    @* ~/ はアプリの URL の起点を表す。今回のローカル環境では
+       ~/css/reception.css が /css/reception.css に変換され、
+       ブラウザーが wwwroot/css/reception.css を読み込む。
+       CSS を変更したときに古いキャッシュが使われないよう、
+       ファイルの内容に応じた識別子を URL に付ける。*@
+    <link rel="stylesheet" href="~/css/reception.css" asp-append-version="true" />
+}
+

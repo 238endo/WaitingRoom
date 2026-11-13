@@ -4,6 +4,11 @@ using WaitingRoom.Web.Services;
 
 namespace WaitingRoom.Web.Controllers;
 
+/// <summary>
+/// 受付画面と待合室画面からの待機状況の取得や、
+/// 受付画面からの「次を呼ぶ」のリクエストを受け取ります。
+/// 受付状況などのデータや、処理が成功したかを返します。
+/// </summary>
 [ApiController]
 [Route("api/queue")]
 public sealed class QueueController : ControllerBase

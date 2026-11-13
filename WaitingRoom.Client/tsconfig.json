@@ -7,7 +7,25 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
+
+    /* ----------------------------------------------------------------------------------
+     module は、TypeScriptを変換した後のJavaScriptの形式を決める。
+    
+     CommonJS
+       require や exports を使う形式。既存のNode.jsコードに合わせるときに使う。
+    
+     NodeNext
+       Node.jsで動かすコード向け。今回のような .ts ファイルでは、
+       package.json の "type" を見て出力形式を決める。
+       "commonjs" なら require / exports、"module" なら import / export を使う。
+    
+     ESNext（今回使う設定）
+       import や export を使うESモジュール形式で出力する。
+       受付画面では、生成した reception.js を
+       <script type="module"> でブラウザーから読み込む。
+    ---------------------------------------------------------------------------------- */
+
+    "module": "ESNext",
     "target": "esnext",
     "types": [],
     // For nodejs:
@@ -16,9 +34,22 @@
     // and npm install -D @types/node
 
     // Other Outputs
-    "sourceMap": false,      // 出力例：app.js.map
-    "declaration": false,    // 出力例：app.d.ts
-    "declarationMap": false, // 出力例：app.d.ts.map
+    // 元の .ts にブレークポイントを置いてデバッグしたいときは true。
+    // .ts と .js の行の対応を記録した .js.map を出力する。
+    "sourceMap": true, 
+    // 別のアプリでも、このプロジェクトの関数を使うときに true。
+    // 「どんな値を渡せるか」「何が返るか」を型情報として .d.ts に書き出す。
+    "declaration": false,
+
+    // 別のアプリでその関数を使っていて、処理の中身まで見たいときに true。
+    // declaration と一緒に使うと、「定義へ移動」で元の .ts を開けるようになる。
+    "declarationMap": false,
+
+    // 元の TypeScript の本文もソースマップに入れ、DevTools で読めるようにする。
+    // ソースマップは、変換後の .js の行と、元の .ts の行を結び付ける対応表です。
+    // DevToolsで読めるようにするためには、
+    // 今回はwwwrootの外でtsファイルを作成していたため、以下のプロパティが必要。
+    "inlineSources": true,
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
