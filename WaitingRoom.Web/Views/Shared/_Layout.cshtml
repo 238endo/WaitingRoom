@@ -8,12 +8,18 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WaitingRoom.Web.styles.css" asp-append-version="true" />
+    @* 画面ごとに専用の CSS を読み込めるよう、この行を手動で追加した。
+       "Styles" は、ビュー側の @section Styles と対応する名前。
+       required: false は、そのセクションがない画面でも表示できるという指定。 *@
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
+    @* ヘッダー。画面の上部に共通のサイト名と Home・Privacy のメニューを表示する。 *@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WaitingRoom.Web</a>
+                @*
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -28,18 +34,23 @@
                         </li>
                     </ul>
                 </div>
+                *@
             </div>
         </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @* 受付画面や待合室画面など、選ばれた画面の本文がここに入る。 *@
             @RenderBody()
         </main>
     </div>
 
+    @* フッター。画面の下部に共通の著作権表記と Privacy へのリンクを表示する。 *@
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2026 - WaitingRoom.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            @* ※ 重要: aタグはページの遷移を表す。 asp-controllerはHomeController、asp-actionはPrivacy()を表す。*@
+            &copy; 2026 - WaitingRoom.Web - 
+            @*<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

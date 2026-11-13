@@ -1,0 +1,21 @@
+/* 「待合室画面」の見出しに区切り線を付ける。 */
+.waiting-room-title {
+    /* 見出しの文字と線の間を空ける。 */
+    padding-bottom: 8px;
+
+    /* 見出しの下に薄いグレーの線を引く。 */
+    border-bottom: 1px solid #d0d7de;
+
+    /* 線の下から「呼び出し中の番号」までの間を空ける。 */
+    margin-bottom: 24px;
+}
+
+/* 呼び出し中の番号を見つけやすくする。 */
+.waiting-number {
+    margin: 24px 0;
+}
+
+/* 呼び出し番号の表示と、待機人数・更新ボタンのまとまりを離す。 */
+.waiting-people {
+    margin: 24px 0;
+}

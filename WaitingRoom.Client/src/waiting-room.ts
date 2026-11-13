@@ -1,6 +1,7 @@
 // WaitingRoom.cshtml にある「更新」ボタンを id で探す。
 const refreshButton = document.querySelector('#refresh-queue');
 
+
 // 最新の受付状況を取得して、呼び出し番号と待機人数を表示する。
 async function refreshWaitingRoom(): Promise<void> {
     // method を省略すると GET になり、現在の受付状況を取得できる。
@@ -13,6 +14,9 @@ async function refreshWaitingRoom(): Promise<void> {
     // 呼び出し番号
     const callingNumberElement = document.querySelector('#calling-number');
 
+    // 案内メッセージ
+    const callingMsgElement = document.querySelector<HTMLElement>('#calling-message')
+
     // 待機人数の表示
     const waitingCountElement = document.querySelector('#waiting-count');
 
@@ -20,6 +24,11 @@ async function refreshWaitingRoom(): Promise<void> {
         // 呼び出し番号が null なら、番号の代わりにメッセージを表示する。
         callingNumberElement.textContent =
             queue.callingNumber ?? '呼び出し中の番号はありません';
+    }
+
+    if (callingMsgElement) {
+        // 番号がなければ true で隠し、番号があれば false で表示する。
+        callingMsgElement.hidden = queue.callingNumber === null;
     }
 
     if (waitingCountElement) {

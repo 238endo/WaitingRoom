@@ -1,3 +1,11 @@
-﻿@{
+﻿@* 各画面のビューを表示する前に、使う共通レイアウトを指定するファイルです。 *@
+
+@{
+    // Reception.cshtml と WaitingRoom.cshtml などの共通レイアウトに Views/Shared/_Layout.cshtml を使う。
+    // Reception.cshtml の @section Styles は、そのレイアウトが <head> に出力する。
+
+    // Layout: ASP.NET Core の RazorPageBase が持っているプロパティです。
+    // _Layout:プロジェクトにある _Layout.cshtml の拡張子を省いた名前です。
+    //         Razor がその名前で探し、WaitingRoom では Views/Shared/_Layout.cshtml を見つけます。
     Layout = "_Layout";
 }

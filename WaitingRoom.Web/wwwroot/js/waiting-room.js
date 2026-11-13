@@ -7,12 +7,18 @@ async function refreshWaitingRoom() {
     const queue = await response.json();
     // 呼び出し番号
     const callingNumberElement = document.querySelector('#calling-number');
+    // 案内メッセージ
+    const callingMsgElement = document.querySelector('#calling-message');
     // 待機人数の表示
     const waitingCountElement = document.querySelector('#waiting-count');
     if (callingNumberElement) {
         // 呼び出し番号が null なら、番号の代わりにメッセージを表示する。
         callingNumberElement.textContent =
             queue.callingNumber ?? '呼び出し中の番号はありません';
+    }
+    if (callingMsgElement) {
+        // 番号がなければ true で隠し、番号があれば false で表示する。
+        callingMsgElement.hidden = queue.callingNumber === null;
     }
     if (waitingCountElement) {
         // 配列の length が待機人数。2件なら「2人」と表示する。

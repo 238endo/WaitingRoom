@@ -1,3 +1,12 @@
-﻿@using WaitingRoom.Web
+﻿@* Views 配下のビューで共通に使う名前空間やタグヘルパーを設定するファイルです。 *@
+
+@* WaitingRoom.Web 名前空間の型を、Views 配下で短い名前で書けるようにする。
+   現在、この行を必要とする型の参照はビューにはない。 *@
+@using WaitingRoom.Web
+
+@* Shared/Error.cshtml で @model ErrorViewModel と短く書けるようにする。 *@
 @using WaitingRoom.Web.Models
+
+@* Shared/_Layout.cshtml の asp-controller と asp-action からメニューのリンク先を作る。
+   Pages/Reception.cshtml の asp-append-version で、受付用 CSS の URL にバージョンを付ける。 *@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
