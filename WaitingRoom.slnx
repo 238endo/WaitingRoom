@@ -6,6 +6,8 @@
     <File Path="docs/images/受付画面と待合室画面.png" />
     <File Path="docs/images/呼び出すAPI図解.png" />
     <File Path="docs/images/待合室画面.png" />
+    <File Path="docs/tests/単体テスト.md" />
+    <File Path="docs/tests/結合テスト.md" />
     <File Path="docs/要件定義.md" />
     <File Path="docs/詳細設計.md" />
     <File Path="README.md" />
