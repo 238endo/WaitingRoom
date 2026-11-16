@@ -11,5 +11,6 @@
     <File Path="README.md" />
     <File Path="WaitingRoom.Web.http" />
   </Folder>
+  <Project Path="WaitingRoom.Web.Tests/WaitingRoom.Web.Tests.csproj" Id="bc498bde-29c3-48c5-a7b5-e225f63b989c" />
   <Project Path="WaitingRoom.Web/WaitingRoom.Web.csproj" />
 </Solution>
