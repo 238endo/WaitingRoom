@@ -1,0 +1,13 @@
+{
+    // 既存の設定を引き継ぐ。たとえば strict や JSX の設定を再利用する。
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        // Vite で使う import の書き方に合わせて、読み込み先を探す。
+        "moduleResolution": "Bundler",
+
+        // JS の生成は Vite が担当するので、ここでは型チェックだけ行う。
+        "noEmit": true
+    },
+    // 受付・待合室・マウント処理など、src 内の .tsx をチェックする。
+    "include": ["src/**/*.tsx"]
+}
