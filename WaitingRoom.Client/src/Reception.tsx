@@ -1,4 +1,7 @@
 import * as React from 'react';
+import CurrentCall from './components/reception/CurrentCall';
+import TicketIssue from './components/reception/TicketIssue';
+import WaitingList from './components/reception/WaitingList';
 import { mountReact } from './mountReact';
 
 function Reception() {
@@ -99,41 +102,30 @@ function Reception() {
         }
     }
 
+    // 次を呼べるのは、待機番号があり、呼び出し中の番号がないとき。
+    const canCallNext = waitingNumbers.length > 0 && callingNumber === null;
+
     return (
         <div className="reception">
             <h1 className="reception-title">受付画面</h1>
 
-            {/* 初版と同じクラス名で、受付画面用の CSS を使う。 */}
-            <section className="issue">
-                <button type="button" onClick={issueTicket}>受付番号を発行</button>
-                {ticketNumber !== null && <p>受付番号 {ticketNumber}</p>}
-                {hasIssueError && <p role="alert">受付番号を発行できませんでした</p>}
-            </section>
-
-            <section className="calling">
-                <h2>呼び出し中</h2>
-                <p>{callingNumber ?? '呼び出し中の番号はありません'}</p>
-                <button type="button" onClick={completeTicket} disabled={callingNumber === null}>
-                    案内完了
-                </button>
-                {hasCompleteError && <p role="alert">案内を完了できませんでした</p>}
-            </section>
-
-            <section className="waiting">
-                <h2>待機中の番号</h2>
-                <ul>
-                    {/* 待機番号1件につき、一覧の行を1つ作る。 */}
-                    {waitingNumbers.map(number => <li key={number}>{number}</li>)}
-                </ul>
-                <button
-                    type="button"
-                    onClick={callNext}
-                    disabled={waitingNumbers.length === 0 || callingNumber !== null}
-                >
-                    次を呼ぶ
-                </button>
-                {hasCallError && <p role="alert">次の番号を呼び出せませんでした</p>}
-            </section>
+            {/* 表示に使う値と、ボタンを押したときに呼ぶ関数を各部品へ渡す。 */}
+            <TicketIssue
+                ticketNumber={ticketNumber}
+                hasIssueError={hasIssueError}
+                onIssue={issueTicket}
+            />
+            <CurrentCall
+                callingNumber={callingNumber}
+                hasCompleteError={hasCompleteError}
+                onComplete={completeTicket}
+            />
+            <WaitingList
+                waitingNumbers={waitingNumbers}
+                canCallNext={canCallNext}
+                hasCallError={hasCallError}
+                onCallNext={callNext}
+            />
         </div>
     );
 }

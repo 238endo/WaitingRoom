@@ -1,4 +1,6 @@
 import * as React from 'react';
+import CallingNumber from './components/waiting-room/CallingNumber';
+import WaitingCount from './components/waiting-room/WaitingCount';
 import { mountReact } from './mountReact';
 
 /* MEMO
@@ -81,22 +83,12 @@ function WaitingRoom() {
                 <p role="alert">最新の受付状況を取得できませんでした</p>
             )}
 
-            <section className="waiting-number">
-                <h2>呼び出し中の番号</h2>
-                {/* 取得前は「未取得」。取得済みで番号がなければ、その旨を表示する。 */}
-                <p>{waitingCount === null
-                    ? '未取得'
-                    : (callingNumber ?? '呼び出し中の番号はありません')}</p>
-
-                {callingNumber !== null && <p>受付へお越しください</p>}
-            </section>
-
-            <section className="waiting-people">
-                <h2>待機人数</h2>
-                {/* null は「未取得」。取得結果が 0 なら「0人」と表示する。 */}
-                <span>{waitingCount === null ? '未取得' : `${waitingCount}人`}</span>
-                <button type="button" onClick={refreshWaitingCount}>更新</button>
-            </section>
+            {/* 人数を取得できていれば、呼び出し番号も取得済み。0人も取得済みに含む。 */}
+            <CallingNumber
+                callingNumber={callingNumber}
+                isLoaded={waitingCount !== null}
+            />
+            <WaitingCount count={waitingCount} onRefresh={refreshWaitingCount} />
         </>
     );
 }
