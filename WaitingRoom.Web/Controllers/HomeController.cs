@@ -6,12 +6,15 @@ namespace WaitingRoom.Web.Controllers
 {
     public class HomeController : Controller
     {
-        /*
+        /// <summary>
+        /// トップページを表示するビューを返します。
+        /// </summary>
         public IActionResult Index()
         {
             return View();
         }
 
+        /*
         public IActionResult Privacy()
         {
             return View();
