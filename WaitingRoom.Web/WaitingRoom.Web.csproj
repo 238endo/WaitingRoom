@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="cd /d &quot;$(ProjectDir)..\WaitingRoom.Client&quot; &amp;&amp; call npm run build" />
+  </Target>
+
 </Project>

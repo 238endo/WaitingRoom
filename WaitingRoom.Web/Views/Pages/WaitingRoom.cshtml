@@ -1,3 +1,4 @@
+@* ※ 今まではtsファイルを使っていたが、tsxファイルに移行したため不要
 <h1 class="waiting-room-title">待合室画面</h1>
 
 <section class= "waiting-number">
@@ -17,6 +18,12 @@
 
 <!-- npx tsc が生成した待合室用の JavaScript を読み込む。 -->
 <script type="module" src="/js/waiting-room.js"></script>
+*@
+
+<!-- WaitingRoom.tsx がこの id を探し、この div の中に表示する。 -->
+<div id="waiting-room-root"></div>
+<!-- Vite が出力した待合室用の JavaScript を読み込む。 -->
+<script type="module" src="/js/react/waiting-room.js"></script>
 
 @* 待合室画面の CSS を、共通レイアウトの <head> に追加する。 *@
 @section Styles {

@@ -7,6 +7,8 @@
 
 <section> は、「この部分は何についてのまとまりか」を見出しで説明できるときに使います。
 *@
+
+@*
 <div class="reception">
 
 <h1 class="reception-title">受付画面</h1>
@@ -41,6 +43,12 @@
 
 <!-- ASP.NET Coreは、wwwroot の中身を、サイトの / から配信します。 -->
 <script type="module" src="/js/reception.js"></script>
+*@
+
+<!-- Reception.tsx は、この id を目印に表示先を探す。 -->
+<div id="reception-root"></div>
+<!-- Vite が生成した、受付用の JavaScript を読み込む。 -->
+<script type="module" src="/js/react/reception.js"></script>
 
 
 @* ※ 共通レイアウトを使わない時(Layout = null)は、このファイルに直で、
