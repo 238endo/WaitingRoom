@@ -6,8 +6,26 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// すべてのリクエストが同じメモリ上の受付状況を参照する。
-builder.Services.AddSingleton<IQueueStore, InMemoryQueueStore>();
+// アプリの起動時に、設定で選ばれた受付データの保存先を登録する。
+switch (builder.Configuration["QueueStore:Provider"])
+{
+    case "InMemory":
+        builder.Services.AddSingleton<IQueueStore, InMemoryQueueStore>();
+        break;
+
+    case "Sql":
+        // SQL版を選んだときだけ、Azure SQLの接続先を読み取る。
+        var connectionString = builder.Configuration.GetConnectionString("WaitingRoom")
+            ?? throw new InvalidOperationException("接続先 WaitingRoom が設定されていません。");
+
+        builder.Services.AddSingleton<IQueueStore>(new SqlQueueStore(connectionString));
+        break;
+
+    default:
+        throw new InvalidOperationException(
+            "QueueStore:Provider に InMemory または Sql を設定してください。");
+}
+
 builder.Services.AddScoped<QueueService>();
 
 var app = builder.Build();
