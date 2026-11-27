@@ -82,19 +82,17 @@ function WaitingRoom() {
             {/* 待合室画面の見出し。初版と同じクラス名で既存の CSS を使う。 */}
             <h1 className="waiting-room-title">待合室画面</h1>
 
-            {waitingCount === null && !hasFetchError && <p role="status">受付状況を取得中…</p>}
-
-            {/* 取得に失敗したときだけ、エラーを表示する。 */}
-            {hasFetchError && (
-                <p role="alert">最新の受付状況を取得できませんでした</p>
-            )}
-
             {/* 人数を取得できていれば、呼び出し番号も取得済み。0人も取得済みに含む。 */}
             <CallingNumber
                 callingNumber={callingNumber}
                 isLoaded={waitingCount !== null}
             />
-            <WaitingCount count={waitingCount} isLoading={isLoading} onRefresh={refreshWaitingCount} />
+            <WaitingCount
+                count={waitingCount}
+                isLoading={isLoading}
+                hasFetchError={hasFetchError}
+                onRefresh={refreshWaitingCount}
+            />
         </>
     );
 }

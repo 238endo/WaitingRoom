@@ -18,7 +18,7 @@ function TicketIssue({ ticketNumber, hasIssueError, isIssuing, isQueueLoading, o
             </button>
             {ticketNumber !== null && <p>受付番号 {ticketNumber}</p>}
             {hasIssueError && (
-                <p role="alert">発行結果を確認できませんでした。再発行の前に待機一覧を確認してください。</p>
+                <p role="alert">発行できませんでした。</p>
             )}
         </section>
     );
