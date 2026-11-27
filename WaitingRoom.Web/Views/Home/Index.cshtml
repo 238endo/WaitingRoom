@@ -8,9 +8,7 @@
 
     <div class="d-flex flex-wrap justify-content-center gap-2">
         @* asp-controller は PagesController、asp-action は開きたい画面のアクションを指定する。 *@
-        <environment include="Development">
-            <a class="btn btn-primary" asp-controller="Pages" asp-action="Reception">受付画面を開く</a>
-        </environment>
+        <a class="btn btn-primary" asp-controller="Pages" asp-action="Reception">受付画面を開く</a>
         <a class="btn btn-primary" asp-controller="Pages" asp-action="WaitingRoom">待合室画面を開く</a>
     </div>
 </div>
