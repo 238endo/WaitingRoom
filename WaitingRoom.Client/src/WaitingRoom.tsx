@@ -13,6 +13,8 @@ function WaitingRoom() {
     // null は「まだ取得できていない」。0 は「取得した結果、待機者が0人」。
     const [waitingCount, setWaitingCount] = React.useState<number | null>(null);
     const [hasFetchError, setHasFetchError] = React.useState(false);
+    // 画面を開いたらすぐ取得するので、最初から更新ボタンを無効にする。
+    const [isLoading, setIsLoading] = React.useState(true);
 
     // 呼び出し中なら 'A001' などの文字列。番号がないときは null。
     const [callingNumber, setCallingNumber] = React.useState<string | null>(null);
@@ -31,6 +33,7 @@ function WaitingRoom() {
         }
 
         isFetching.current = true;
+        setIsLoading(true);
         try {
             const response = await fetch('/api/queue');
 
@@ -55,6 +58,7 @@ function WaitingRoom() {
         } finally {
             // 成功しても失敗しても、次の更新で通信できるように戻す。
             isFetching.current = false;
+            setIsLoading(false);
         }
     }, []);
 
@@ -78,6 +82,8 @@ function WaitingRoom() {
             {/* 待合室画面の見出し。初版と同じクラス名で既存の CSS を使う。 */}
             <h1 className="waiting-room-title">待合室画面</h1>
 
+            {waitingCount === null && !hasFetchError && <p role="status">受付状況を取得中…</p>}
+
             {/* 取得に失敗したときだけ、エラーを表示する。 */}
             {hasFetchError && (
                 <p role="alert">最新の受付状況を取得できませんでした</p>
@@ -88,7 +94,7 @@ function WaitingRoom() {
                 callingNumber={callingNumber}
                 isLoaded={waitingCount !== null}
             />
-            <WaitingCount count={waitingCount} onRefresh={refreshWaitingCount} />
+            <WaitingCount count={waitingCount} isLoading={isLoading} onRefresh={refreshWaitingCount} />
         </>
     );
 }

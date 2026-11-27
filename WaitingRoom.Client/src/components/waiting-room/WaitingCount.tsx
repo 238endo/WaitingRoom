@@ -2,10 +2,11 @@ import * as React from 'react';
 
 type WaitingCountProps = {
     count: number | null;
+    isLoading: boolean;
     onRefresh: () => Promise<void>;
 };
 
-function WaitingCount({ count, onRefresh }: WaitingCountProps) {
+function WaitingCount({ count, isLoading, onRefresh }: WaitingCountProps) {
     return (
         <section className="waiting-people">
             <h2>待機人数</h2>
@@ -13,7 +14,7 @@ function WaitingCount({ count, onRefresh }: WaitingCountProps) {
             <span>{count === null ? '未取得' : `${count}人`}</span>
 
             {/* onRefresh は親から受け取った取得関数。「更新」を押したときに呼ぶ。 */}
-            <button type="button" onClick={onRefresh}>更新</button>
+            <button type="button" onClick={onRefresh} disabled={isLoading}>更新</button>
         </section>
     );
 }
