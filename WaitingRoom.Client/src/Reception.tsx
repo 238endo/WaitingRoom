@@ -136,8 +136,8 @@ function Reception() {
             {isQueueLoading && <p role="status">受付状況を取得中…</p>}
             {queueStatus === 'error' && (
                 <div>
-                    <p role="alert">受付状況を取得できませんでした{queue && '。前回取得した状況を表示しています'}</p>
                     <button type="button" onClick={refreshWaitingList}>再取得</button>
+                    <p role="alert">{queue ? '受付状況を更新できませんでした。' : '受付状況を読み込めませんでした。'}</p>
                 </div>
             )}
             {queue && (
